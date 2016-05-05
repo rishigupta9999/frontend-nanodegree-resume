@@ -56,53 +56,69 @@ var work = { "jobs":
                           "-- Turnaround time for changes went from one day to less than an hour." +
                           "-- Wrote a C# tool to automate CHM file merging and conversion which saved several hours per release."
         },
-        {   company: "Neon Games",
-            city: "Santa Monica",
-            title: "Product Manager",
-            years_worked: "2008-2014"
+        {   employer: "Neon Games",
+            title: "Cofounder and Product Manager",
+            location: "Santa Monica, CA",
+            dates: "2008-2014",
+            description:  "- Designed and managed development for four iOS titles end-to-end from conception to submission." +
+                          "- Expert in using product usage data to optimize product features. For example, built feature pipeline to optimize KPIs such as short session length, D7/D30 retention, LTV/RPU, segmentation and cohort analysis." +
+                          "- Led UX testing and interviews using mock ad campaigns, landing page analysis, empathy interviews." +
+                          "- Designed and developed in-house A/B testing client side system, which interfaced with analytics and database APIs." +
+                          "- Managed and hired team of artists, using A/B testing to optimize game asset creation." +
+                          "- Worked closely with highly technical engineering team to deliver on aggressive deadlines." +
+                          "- Primary developer behind custom iOS OpenGL ES-based game engine, used in all Neon Games’ titles.  Developed 3D model & animation pipeline, as well as a text generation pipeline with localization, 3D effects." +
+                          "- Multithreaded / multi-core optimizations to improve load times and frame rates."
         },
-        {   company: "Apple",
-            city: "Cupertino",
+        {   employer: "Apple",
             title: "Software Engineer",
-            years_worked: "2008-2012"
+            location: "Cupertino, CA",
+            dates: "2008-2012",
+            description: "- GPU bringup for Imagination SGX543 (mid-range iOS devices) and RGX (recent iOS devices)" +
+                         "- Fixed bugs in shader compilation, vertex command stream setup issues, and other areas." +
+                         "- Implemented Render to Float, Mipmaps, Cubemaps, Volume Textures, Texture Arrays, Compressed Textures at driver level. This work involved the kernel level IOKit framework." +
+                         "- Development on “offline” GPU simulation tool for capture and playback of the GPU command stream." +
+                         "- Work for WWDC – Apple’s annual trade show." +
+                         "- Decided which GPU features would have the highest ROI for Apple to show to developers, and prepared demos to showcase them. Demos included HDR rendering, stencil shadows and refraction / diffraction using OpenGL ES 2 shaders." +
+                         "- Educated 3rd party developers to ensure their games properly used Apple technologies."
         }
-    ]
+    ],
+    display: function() {
+      for (curJob in work.jobs)
+      {
+          $("#workExperience").append(HTMLworkStart);
+
+          var workData = HTMLworkEmployer.replace("%data%", work.jobs[curJob].employer);
+          var workTitle = HTMLworkTitle.replace("%data%", work.jobs[curJob].title);
+
+          $(".work-entry:last").append(workData+workTitle);
+      }
+    }
 }
 
 var projects = { "projects":
   [
     {
-      "title": "Madden 2006-2008",
-      "platforms": [ "Xbox 360", "Playstation 3" ],
-      "years_released": "2006-2008"
+      "title": "Xbox Live",
+      "dates": "2015-2016",
+      "description": "The online gaming services for Xbox One and Windows 10",
+      "images": "xboxlive.png"
     },
     {
-      "title": "iOS 3 - 7",
-      "platforms": [ "iPhone, iPad" ],
-      "years_released": "2009-2012"
+      "title": "Pizza Rush",
+      "dates": "2014",
+      "description": "Get cool gadgets and make pizzas",
+      "images": "pizza_rush.jpg"
     },
     {
-      "title": "Netflix",
-      "platforms": [ "Nintendo Wii U" ],
-      "years_released": "2012"
+      "title": "iOS",
+      "dates": "2009-2012",
+      "description": "Operating system which runs on iPhone, iPad, and Apple TV",
+      "images": "ios.png"
     },
   ]
 }
 
-function displayWork()
-{
-    for (curJob in work.positions)
-    {
-        $("#workExperience").append(HTMLworkStart);
-
-        var workData = HTMLworkEmployer.replace("%data%", work.positions[curJob].company);
-        var workTitle = HTMLworkTitle.replace("%data%", work.positions[curJob].title);
-
-        $(".work-entry:last").append(workData+workTitle)
-    }
-}
-
-displayWork();
+work.display();
 
 function locationizer(x)
 {
@@ -122,9 +138,10 @@ console.log(locationizer(work.positions));
 $("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
 $("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
 
-$("#topContacts").append(HTMLemail.replace("%data%", bio.e_mail));
-$("#topContacts").append(HTMLmobile.replace("%data%", bio.phone));
-$("#topContacts").append(HTMLgithub.replace("%data%", bio.github));
+$("#topContacts").append(HTMLemail.replace("%data%", bio.contacts.email));
+$("#topContacts").append(HTMLmobile.replace("%data%", bio.contacts.mobile));
+$("#topContacts").append(HTMLgithub.replace("%data%", bio.contacts.github));
+$("#topContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
 
 function clickFunc(loc)
 {
