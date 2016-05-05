@@ -7,8 +7,27 @@ var bio = { name: "Rishi Gupta",
               location: "Seattle, WA"
             },
             welcome_message: "Welcome to my fancy Javascript resume",
-            skills: ["C++", "OpenGL", "iOS", "Ruby"],
-            biopic: "rishi.jpg",
+            skills: ["C++", "OpenGL", "iOS", "Ruby on Rails"],
+            biopic: "images/rishi.jpg",
+            display: function() {
+              $("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
+              $("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
+
+              $("#topContacts").append(HTMLemail.replace("%data%", bio.contacts.email));
+              $("#topContacts").append(HTMLmobile.replace("%data%", bio.contacts.mobile));
+              $("#topContacts").append(HTMLgithub.replace("%data%", bio.contacts.github));
+              $("#topContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
+
+              $("#header").append(HTMLbioPic.replace("%data%", bio.biopic));
+              $("#header").append(HTMLwelcomeMsg.replace("%data%", bio.welcome_message));
+
+              $("#header").append(HTMLskillsStart);
+
+              for(curSkill in bio.skills)
+              {
+                $("#header").append(HTMLskills.replace("%data%", bio.skills[curSkill]));
+              }
+            }
           };
 
 
@@ -48,13 +67,13 @@ var work = { "jobs":
             dates: "2015 - 2016",
             description:  "- Led Xbox Live developer experience initiatives. These include developer tools and developer education." +
                           "- Drove the development of a developer token service, which allows developer tools to perform enhanced operations on Xbox Live services." +
-                          "-- Example scenarios are reading multiplayer session history, resetting achievements, and many others." + 
+                          "- Example scenarios are reading multiplayer session history, resetting achievements, and many others." + 
                           "- Managed development of several new development tools used by AAA 3rd and 1st party game developers." +
-                          "-- These tools include trace analysis for recommending more effective calling patterns, managing Xbox Live development accounts, and multiplayer session transaction history." +
+                          "- These tools include trace analysis for recommending more effective calling patterns, managing Xbox Live development accounts, and multiplayer session transaction history." +
                           "- Implemented new documentation pipeline for the Xbox One XDK and Xbox Live SDK." +
-                          "-- Allowed all PMs and engineers to easily contribute peer-reviewed content." +
-                          "-- Turnaround time for changes went from one day to less than an hour." +
-                          "-- Wrote a C# tool to automate CHM file merging and conversion which saved several hours per release."
+                          "- Allowed all PMs and engineers to easily contribute peer-reviewed content." +
+                          "- Turnaround time for changes went from one day to less than an hour." +
+                          "- Wrote a C# tool to automate CHM file merging and conversion which saved several hours per release."
         },
         {   employer: "Neon Games",
             title: "Cofounder and Product Manager",
@@ -91,6 +110,12 @@ var work = { "jobs":
           var workTitle = HTMLworkTitle.replace("%data%", work.jobs[curJob].title);
 
           $(".work-entry:last").append(workData+workTitle);
+          $(".work-entry:last").append(HTMLworkDates.replace("%data%", work.jobs[curJob].dates));
+          $(".work-entry:last").append(HTMLworkLocation.replace("%data%", work.jobs[curJob].location));
+
+          descriptionString = work.jobs[curJob].description.replace(/- /g, "<li>");
+
+          $(".work-entry:last").append(HTMLworkDescription.replace("%data%", "<ul>" + descriptionString + "</ul>"));
       }
     }
 }
@@ -118,6 +143,7 @@ var projects = { "projects":
   ]
 }
 
+bio.display();
 work.display();
 
 function locationizer(x)
@@ -134,14 +160,6 @@ function locationizer(x)
 
 console.log(locationizer(work.positions));
 
-
-$("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
-$("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
-
-$("#topContacts").append(HTMLemail.replace("%data%", bio.contacts.email));
-$("#topContacts").append(HTMLmobile.replace("%data%", bio.contacts.mobile));
-$("#topContacts").append(HTMLgithub.replace("%data%", bio.contacts.github));
-$("#topContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
 
 function clickFunc(loc)
 {
