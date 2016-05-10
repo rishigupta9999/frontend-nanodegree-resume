@@ -6,7 +6,7 @@ var bio = { name: "Rishi Gupta",
               github: "https://github.com/rishigupta9999",
               location: "Seattle, WA"
             },
-            welcome_message: "Welcome to my fancy Javascript resume",
+            welcome_message: "Welcome to my resume",
             skills: ["C++", "OpenGL", "iOS", "Ruby on Rails"],
             biopic: "images/rishi.jpg",
             display: function() {
@@ -27,6 +27,14 @@ var bio = { name: "Rishi Gupta",
               {
                 $("#header").append(HTMLskills.replace("%data%", bio.skills[curSkill]));
               }
+            },
+
+            displayFooter: function() {
+              $("#footerContacts").append(HTMLemail.replace("%data%", bio.contacts.email));
+              $("#footerContacts").append(HTMLmobile.replace("%data%", bio.contacts.mobile));
+              $("#footerContacts").append(HTMLgithub.replace("%data%", bio.contacts.github));
+              $("#footerContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
+
             }
           };
 
@@ -56,7 +64,40 @@ var education = { "schools":
       "date": "2016",
       "url": "http://www.lynda.com"
     }
-  ]
+  ],
+  display: function()
+  {
+      for (curSchool in education.schools)
+      {
+        $("#education").append(HTMLschoolStart);
+
+        schoolName = HTMLschoolName.replace("%data%", education.schools[curSchool].name);
+        schoolDegree = HTMLschoolDegree.replace("%data%", education.schools[curSchool].degree);
+
+        $(".education-entry:last").append(schoolName + schoolDegree);
+        $(".education-entry:last").append(HTMLschoolDates.replace("%data%", education.schools[curSchool].dates));
+        $(".education-entry:last").append(HTMLworkLocation.replace("%data%", education.schools[curSchool].location));
+
+        for (curMajor in education.schools[curSchool].majors)
+        {
+          $(".education-entry:last").append(HTMLschoolMajor.replace("%data%", education.schools[curSchool].majors[curMajor]));
+        }
+      }
+
+      $("#education").append(HTMLonlineClasses);
+
+      for (curCourse in education.onlineCourses)
+      {
+        $("#education").append(HTMLschoolStart);
+
+        schoolName = HTMLonlineTitle.replace("%data%", education.onlineCourses[curCourse].title);
+        schoolDegree = HTMLonlineSchool.replace("%data%", education.onlineCourses[curCourse].school);
+
+        $(".education-entry:last").append(schoolName + schoolDegree);
+        $(".education-entry:last").append(HTMLonlineDates.replace("%data%", education.onlineCourses[curCourse].date));
+        $(".education-entry:last").append(HTMLonlineURL.replace("%data%", education.onlineCourses[curCourse].url));
+      }
+  }
 };
 
 var work = { "jobs":
@@ -126,66 +167,46 @@ var projects = { "projects":
       "title": "Xbox Live",
       "dates": "2015-2016",
       "description": "The online gaming services for Xbox One and Windows 10",
-      "images": "xboxlive.png"
+      "images": ["xboxlive.png", "halo5.jpg", "gta5.jpg"]
     },
     {
       "title": "Pizza Rush",
       "dates": "2014",
       "description": "Get cool gadgets and make pizzas",
-      "images": "pizza_rush.jpg"
+      "images": ["pizza_rush.jpg", "pizza_rush2.jpg", "pizza_rush3.jpg"]
     },
     {
       "title": "iOS",
       "dates": "2009-2012",
       "description": "Operating system which runs on iPhone, iPad, and Apple TV",
-      "images": "ios.png"
+      "images": ["ios.png"]
     },
-  ]
+  ],
+  display: function() {
+    for (curProject in projects.projects)
+    {
+      $("#projects").append(HTMLprojectStart);
+      $(".project-entry:last").append(HTMLprojectTitle.replace("%data%", projects.projects[curProject].title));
+      $(".project-entry:last").append(HTMLprojectDates.replace("%data%", projects.projects[curProject].dates));
+      $(".project-entry:last").append(HTMLprojectDescription.replace("%data%", projects.projects[curProject].description));
+
+      for (curImage in projects.projects[curProject].images)
+      {
+        $(".project-entry:last").append(HTMLprojectImage.replace("%data%", "images/" + projects.projects[curProject].images[curImage]));
+      }
+    }
+  }
 }
 
 bio.display();
+bio.displayFooter();
+
 work.display();
+projects.display();
+education.display();
 
-function locationizer(x)
-{
-    var retArray = new Array;
+$("#mapDiv").append(googleMap);
 
-    for (curWork in x)
-    {
-        retArray.push(x[curWork].city);
-    }
-
-    return retArray;
-}
-
-console.log(locationizer(work.positions));
-
-
-function clickFunc(loc)
-{
-    logClicks(loc.pageX, loc.pageY)
-}
-
-var fooVar = clickFunc;
-
-$(document).click(clickFunc);
-
-function inName(name)
-{
-    var names = name.split(" ");
-
-    var firstName = names[0].charAt(0).toUpperCase() + names[0].slice(1);
-    var lastName = names[1].toUpperCase();
-
-    return firstName + ' ' + lastName;
-}
-
-$("#main").append(internationalizeButton)
-
-console.log(inName("rishi Gupta"));
-
-projects.display = function()
-{
-    $("#projects").append(HTMLprojectStart);
-
-}
+$('[data-spy="scroll"]').each(function () {
+  var $spy = $(this).scrollspy('refresh')
+})

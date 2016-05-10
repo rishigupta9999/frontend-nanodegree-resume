@@ -14,8 +14,16 @@ h6 {
   font-family: "Roboto", sans-serif;
 }
 
+body {
+  position: relative;
+}
+
 .clear-fix {
   overflow: auto;
+}
+
+#role {
+  color: #ff8888;
 }
 
 .education-entry,
@@ -28,9 +36,36 @@ h6 {
   list-style-type: disc;
 }
 
+.nav > li > a {
+  margin-top: 0;
+}
+
+.navbar {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.navbar-default .navbar-nav > .active,
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #fff;
+  background: #ff6666;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
+  font-weight: bolder;
+  font-size: 1.25em;
+  text-shadow:  -1px -1px 0 #000,  
+                1px -1px 0 #000,
+                -1px  1px 0 #000,
+                1px  1px 0 #000;
+}
+
+
 h1 {
   font-size: 40px;
-  color: #f5a623;
+  color: #ffaaaa;
   line-height: 48px;
   display: inline;
 }
@@ -104,16 +139,23 @@ a {
 }
 
 #skills-h3 {
-  color: #f5ae23;
+  color: #ffaaaa;
   display: none;
 }
 
-.orange {
-  background-color: #f5ae23;
+.pink-text {
+  color: #ffaaaa;
 }
 
-.orange-text {
-  color: #f5ae23;
+.red-footer{
+  background-color: #ff8888;
+  color: #ffffff;
+
+  text-shadow:  -1px -1px 0 #000,  
+              1px -1px 0 #000,
+              -1px  1px 0 #000,
+              1px  1px 0 #000;
+
 }
 
 .white-text {
@@ -133,7 +175,7 @@ a {
 
 /* TODO: Replace with image later */
 #header {
-  background-color: #484848;
+  background-image: url('../images/header_texture.jpg');
 }
 
 .flex-box {
@@ -146,7 +188,10 @@ a {
 }
 
 .center-content {
-  padding: 2.5% 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 60px;
+  padding-bottom: 30px;
 }
 
 ul {
@@ -171,6 +216,8 @@ span {
 #lets-connect {
   text-align: center;
 }
+
+
 
 /* Media queries to handle various device widths */
 
